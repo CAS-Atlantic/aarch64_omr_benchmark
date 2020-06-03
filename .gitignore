@@ -1,0 +1,5 @@
+*/*/run
+Benchmarks/*/*
+!Benchmarks/*/Makefile
+!Benchmarks/*/parse*.conf
+!Benchmarks/parse*.conf
