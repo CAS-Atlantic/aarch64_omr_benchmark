@@ -12,6 +12,9 @@ export TIME=\n\
         Context Switch:    %c+%w\n\
         Program Exit Code: %x\n
 
+BENCHMARK_NAME = ScimarkJava
+VM ?= null
+CPU_TYPE ?= null
 
 JAVA_OPTS ?= -Xint
 
@@ -45,7 +48,10 @@ build: scimarkJava
 	cd scimarkJava && git reset --hard origin/master && git clean -dxf && git pull && make 
 
 run: build $(RUN_DIR)
-        mkdir -p $@
+	@mkdir -p $(RUN_DIR)
+	@printf "-- BENCHMARK_NAME: $(BENCHMARK_NAME)\n" >> $(RUN_DIR)/$@.txt	
+	@printf "-- VM: $(VM)\n" >> $(RUN_DIR)/$@.txt
+	@printf "-- CPU_TYPE: $(CPU_TYPE)\n" >> $(RUN_DIR)/$@.txt
 	@printf "\n===== Executing $@ (log: $(RUN_DIR)/$@.txt) =====\n"
 	cd scimarkJava && /usr/bin/time $(RUNNER) $@ $(ITTERATION) 2>&1 | tee $(RUN_DIR)/$@.txt
 

@@ -16,6 +16,10 @@ INSTALLER=SPECjvm2008_1_01_setup.jar
 URL=http://spec.cs.miami.edu/downloads/osg/java/$(INSTALLER)
 EXECUTABLE_JAR=SPECjvm2008.jar
 
+BENCHMARK_NAME = SPECjvm2008
+VM ?= null
+CPU_TYPE ?= null
+
 BENCHMARK_THREAD ?= 4
 
 JAVA_OPTS ?= -Xint
@@ -97,9 +101,6 @@ PARSER_CONF := $(CURDIR)/parse.conf
 # begin
 default: all
 
-$(RUN_DIR):
-	mkdir -p $@
-
 $(INSTALLER):
 	[ -f "$(INSTALLER)" ] || curl -L $(URL) -o $(INSTALLER)
 
@@ -108,7 +109,11 @@ $(EXECUTABLE_JAR): $(INSTALLER)
 			-DUSER_INSTALL_DIR=./ \
 			-i silent
 
-$(ALL): $(EXECUTABLE_JAR) $(RUN_DIR)
+$(ALL): $(EXECUTABLE_JAR)
+	@mkdir -p $(RUN_DIR)
+	@printf "-- BENCHMARK_NAME: $(BENCHMARK_NAME)\n" >> $(RUN_DIR)/$@.txt	
+	@printf "-- VM: $(VM)\n" >> $(RUN_DIR)/$@.txt
+	@printf "-- CPU_TYPE: $(CPU_TYPE)\n" >> $(RUN_DIR)/$@.txt
 	@printf "\n===== Executing $@ (log: $(RUN_DIR)/$@.txt) =====\n"
 	/usr/bin/time $(RUNNER) $@ 2>&1 | tee $(RUN_DIR)/$@.txt
 

@@ -15,6 +15,10 @@ export TIME=\n\
 ##################
 # setup BM
 
+BENCHMARK_NAME = ScimarkC
+VM ?= null
+CPU_TYPE ?= null
+
 ITTERATION=30
 
 SCIMARK := \
@@ -41,7 +45,10 @@ build: scimarkC
 	cd scimarkC && git reset --hard origin/master && git clean -dxf && git pull && make
 
 $(SCIMARK):
-	mkdir -p $(RUN_DIR)
+	@mkdir -p $(RUN_DIR)
+	@printf "-- BENCHMARK_NAME: $(BENCHMARK_NAME)\n" >> $(RUN_DIR)/$@.txt	
+	@printf "-- VM: $(VM)\n" >> $(RUN_DIR)/$@.txt
+	@printf "-- CPU_TYPE: $(CPU_TYPE)\n" >> $(RUN_DIR)/$@.txt
 	@printf "\n===== Executing $@ (log: $(RUN_DIR)/$@.txt) =====\n"
 	cd scimarkC && /usr/bin/time ./$@ $(ITTERATION) 2>&1 | tee $(RUN_DIR)/$@.txt
 

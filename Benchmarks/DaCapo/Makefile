@@ -12,6 +12,10 @@ export TIME=\n\
         Context Switch:    %c+%w\n\
         Program Exit Code: %x\n
 
+BENCHMARK_NAME = Dacapo
+VM ?= null
+CPU_TYPE ?= null
+
 INSTALLER=dacapo-9.12-MR1-bach.jar
 URL=https://versaweb.dl.sourceforge.net/project/dacapobench/9.12-bach-MR1/$(INSTALLER)
 EXECUTABLE_JAR=$(INSTALLER)
@@ -37,7 +41,6 @@ ALL := \
 	sunflow \
 	xalan
 
-
 TEMP_DIR := $(CURDIR)/run
 RUN_DIR := $(shell mkdir -p $(TEMP_DIR)/$(_REPO_FIX); mktemp -d $(TEMP_DIR)/$(_REPO_FIX)/run_XXX)
 PARSER := $(CURDIR)/../../parse_bm.py 
@@ -47,13 +50,14 @@ PARSER_CONF := $(CURDIR)/parse.conf
 # begin
 default: all
 
-$(RUN_DIR):
-	mkdir -p $@
-
 $(EXECUTABLE_JAR):
 	[ -f "$(EXECUTABLE_JAR)" ] || curl -L $(URL) -o $(EXEC)
 
-$(ALL): $(EXECUTABLE_JAR) $(RUN_DIR)
+$(ALL): $(EXECUTABLE_JAR)
+	@mkdir -p $(RUN_DIR)
+	@printf "-- BENCHMARK_NAME: $(BENCHMARK_NAME)\n" >> $(RUN_DIR)/$@.txt	
+	@printf "-- VM: $(VM)\n" >> $(RUN_DIR)/$@.txt
+	@printf "-- CPU_TYPE: $(CPU_TYPE)\n" >> $(RUN_DIR)/$@.txt
 	@printf "\n===== Executing $@ (log: $(RUN_DIR)/$@.txt) =====\n"
 	/usr/bin/time $(RUNNER) $@ 2>&1 | tee $(RUN_DIR)/$@.txt
 
