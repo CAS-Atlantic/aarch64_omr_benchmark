@@ -47,7 +47,7 @@ scimarkJava:
 build: scimarkJava
 	cd scimarkJava && git reset --hard origin/master && git clean -dxf && git pull && make 
 
-run: build $(RUN_DIR)
+$(SCIMARK):
 	@mkdir -p $(RUN_DIR)
 	@echo "-- BENCHMARK_NAME: $(BENCHMARK_NAME)" >> $(RUN_DIR)/$@.txt	
 	@echo "-- VM: $(VM)" >> $(RUN_DIR)/$@.txt
@@ -55,4 +55,7 @@ run: build $(RUN_DIR)
 	@echo ""
 	@echo "===== Executing $@ (log: $(RUN_DIR)/$@.txt) ====="
 	cd scimarkJava && /usr/bin/time $(RUNNER) $@ $(ITTERATION) 2>&1 | tee $(RUN_DIR)/$@.txt
+
+run: | build $(SCIMARK)
+
 
