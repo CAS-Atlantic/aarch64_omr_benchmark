@@ -12,20 +12,22 @@ export TIME=\n\
         Context Switch:    %c+%w\n\
         Program Exit Code: %x\n
 
-EXECUTABLE_CLASS=scimarkJava/commandline.class
-
-PERF_CMD := perf stat record -a -d -d -d
-
-BENCHMARK_THREAD ?= 4
-BENCHMARK_NAME := ScimarkJava
 
 JAVA_OPTS ?= -Xint
 
+ITTERATION=30
+
+SCIMARK := \
+	scimark.fft \
+	scimark.lu \
+	scimark.sor \
+	scimark.sparse \
+	scimark.monte_carlo
 
 ##################
 # setup BM
 
-RUNNER := $(JAVA_HOME)/bin/java $(JAVA_OPTS) jnt.scimark2.commandline 30
+RUNNER := $(JAVA_HOME)/bin/java $(JAVA_OPTS)
 
 TEMP_DIR := $(CURDIR)/run
 RUN_DIR := $(shell mkdir -p $(TEMP_DIR)/$(_REPO_FIX); mktemp -d $(TEMP_DIR)/$(_REPO_FIX)/run_XXX)
@@ -36,9 +38,6 @@ PARSER_CONF := $(CURDIR)/parse.conf
 # begin
 default: run
 
-$(RUN_DIR):
-	mkdir -p $@
-
 scimarkJava:
 	git clone https://github.com/jeanlego/scimarkJava.git
 
@@ -46,6 +45,7 @@ build: scimarkJava
 	cd scimarkJava && git reset --hard origin/master && git clean -dxf && git pull && make 
 
 run: build $(RUN_DIR)
+        mkdir -p $@
 	@printf "\n===== Executing $@ (log: $(RUN_DIR)/$@.txt) =====\n"
-	cd scimarkJava && /usr/bin/time $(RUNNER) 2>&1 | tee $(RUN_DIR)/$@.txt
+	cd scimarkJava && /usr/bin/time $(RUNNER) $@ $(ITTERATION) 2>&1 | tee $(RUN_DIR)/$@.txt
 

@@ -12,14 +12,17 @@ export TIME=\n\
 	Context Switch:    %c+%w\n\
 	Program Exit Code: %x\n
 
-PERF_CMD := /usr/bin/time
-
-BENCHMARK_THREAD ?= 4
-BENCHMARK_NAME := ScimarkC
-
-
 ##################
 # setup BM
+
+ITTERATION=30
+
+SCIMARK := \
+	fft \
+	lu \
+	sor \
+	sparse \
+	monte_carlo
 
 TEMP_DIR := $(CURDIR)/run
 RUN_DIR := $(shell mkdir -p $(TEMP_DIR)/$(_REPO_FIX); mktemp -d $(TEMP_DIR)/$(_REPO_FIX)/run_XXX)
@@ -31,16 +34,17 @@ PARSER_CONF := $(CURDIR)/parse.conf
 
 default: run
 
-$(RUN_DIR):
-	mkdir -p $@
-
 scimarkC:
 	git clone https://github.com/jeanlego/scimarkC.git
 
 build: scimarkC
 	cd scimarkC && git reset --hard origin/master && git clean -dxf && git pull && make
 
-run: build $(RUN_DIR)
+$(SCIMARK):
+	mkdir -p $(RUN_DIR)
 	@printf "\n===== Executing $@ (log: $(RUN_DIR)/$@.txt) =====\n"
-	/usr/bin/time ./scimarkC/scimark 30 2>&1 | tee $(RUN_DIR)/$@.txt
+	cd scimarkC && /usr/bin/time ./$@ $(ITTERATION) 2>&1 | tee $(RUN_DIR)/$@.txt
+
+run: | build $(SCIMARK)
+	
 

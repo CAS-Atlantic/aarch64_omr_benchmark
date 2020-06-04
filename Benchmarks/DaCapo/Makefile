@@ -16,18 +16,13 @@ INSTALLER=dacapo-9.12-MR1-bach.jar
 URL=https://versaweb.dl.sourceforge.net/project/dacapobench/9.12-bach-MR1/$(INSTALLER)
 EXECUTABLE_JAR=$(INSTALLER)
 
-PERF_CMD := perf stat record -a -d -d -d
-
 BENCHMARK_THREAD ?= 4
-BENCHMARK_NAME := DaCapo
 
 JAVA_OPTS ?= -Xint
-JAR := -jar $(EXECUTABLE_JAR)
-
 
 ##################
 # setup BM
-RUNNER := $(JAVA_HOME)/bin/java $(JAVA_OPTS) $(JAR) \
+RUNNER := $(JAVA_HOME)/bin/java $(JAVA_OPTS) -jar $(EXECUTABLE_JAR) \
 	--thread-count $(BENCHMARK_THREAD)
 
 ALL := \
@@ -60,7 +55,7 @@ $(EXECUTABLE_JAR):
 
 $(ALL): $(EXECUTABLE_JAR) $(RUN_DIR)
 	@printf "\n===== Executing $@ (log: $(RUN_DIR)/$@.txt) =====\n"
-	$(PERF_CMD) $(RUNNER) $@ 2>&1 | tee $(RUN_DIR)/$@.txt
+	/usr/bin/time $(RUNNER) $@ 2>&1 | tee $(RUN_DIR)/$@.txt
 
 all: $(ALL)
 

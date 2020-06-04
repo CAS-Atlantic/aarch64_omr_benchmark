@@ -16,10 +16,7 @@ INSTALLER=SPECjvm2008_1_01_setup.jar
 URL=http://spec.cs.miami.edu/downloads/osg/java/$(INSTALLER)
 EXECUTABLE_JAR=SPECjvm2008.jar
 
-PERF_CMD := perf stat record -a -d -d -d
-
 BENCHMARK_THREAD ?= 4
-BENCHMARK_NAME := SPECjvm2008
 
 JAVA_OPTS ?= -Xint
 JAR := -jar $(EXECUTABLE_JAR)
@@ -113,7 +110,7 @@ $(EXECUTABLE_JAR): $(INSTALLER)
 
 $(ALL): $(EXECUTABLE_JAR) $(RUN_DIR)
 	@printf "\n===== Executing $@ (log: $(RUN_DIR)/$@.txt) =====\n"
-	$(PERF_CMD) $(RUNNER) $@ 2>&1 | tee $(RUN_DIR)/$@.txt
+	/usr/bin/time $(RUNNER) $@ 2>&1 | tee $(RUN_DIR)/$@.txt
 
 crypto: $(CRYPTO)
 
