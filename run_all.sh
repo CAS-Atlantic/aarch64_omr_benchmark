@@ -27,10 +27,10 @@ esac
 
 ITTERATE="1"
 BENCHMARK_DIR=(
-#	"Benchmarks/SPECjvm2008"
-#	"Benchmarks/DaCapo"
-        "Benchmarks/ScimarkC"
-        "Benchmarks/ScimarkJava"
+	"Benchmarks/SPECjvm2008"
+	"Benchmarks/DaCapo"
+    "Benchmarks/ScimarkC"
+    "Benchmarks/ScimarkJava"
 )
 
 for BENCHMARK in ${BENCHMARK_DIR[@]}
@@ -41,20 +41,23 @@ do
 		for jvm in "${jdk_v}"/*
 		do
 			JAVA_HOME="${jvm}"
-			JAVA_OPTS=" -Xint -Xms2G -Xmx2G "
-			case $(basename "${jvm}") in
-				openj9)
+			JAVA_OPTS=" -Xms2G -Xmx2G "
+			VM="$(basename "${jvm}")"
+			case "${VM}" in
+				*openj9*)
+					VM="openj9"
 					JAVA_OPTS="${JAVA_OPTS} -Xgcpolicy:optthruput -Xgcthreads2 -Xenableexcessivegc -Xgc:excessiveGCratio=95"
 				;;
 
-				hotspot)
+				*hotspot*)
+					VM="hotspot"
 					JAVA_OPTS="${JAVA_OPTS} -XX:+UseParallelGC -XX:ParallelGCThreads=2 -XX:GCTimeRatio=19"
 				;;
 			esac
 
 			for (( i=1; i <= ITTERATE; i++ ))
 			do
-				make CPU="${CPU}" VM="$(basename "${jvm}")" JAVA_HOME="${JAVA_HOME}" JAVA_OPTS="${JAVA_OPTS}"
+				make CPU="${CPU}" VM="${VM}" JAVA_HOME="${JAVA_HOME}" JAVA_OPTS="${JAVA_OPTS}"
 			done
 		done
 	done

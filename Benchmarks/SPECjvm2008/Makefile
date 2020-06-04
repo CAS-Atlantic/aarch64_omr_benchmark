@@ -33,7 +33,6 @@ RUNNER := $(JAVA_HOME)/bin/java $(JAVA_OPTS) $(JAR) \
 			-Dspecjvm.print.progress=true \
 			-Dspecjvm.benchmark.warmup.time=0 \
 			-Dspecjvm.miniter=1 \
-			-Dspecjvm.maxniter=1 \
 			-Dspecjvm.benchmark.threads=$(BENCHMARK_THREAD) \
 			-Dspecjvm.run.initial.check=false \
 			-Dspecjvm.run.checksum.validation=false \
