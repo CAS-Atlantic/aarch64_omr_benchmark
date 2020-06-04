@@ -22,12 +22,9 @@ function _parse() {
 
 				if [ -d ${directories} ] && [ "_0" != "_$(ls ${directories} | wc -w)" ]
 				then
-					bm_type=$(echo ${dir} | sed 's/-debian.*//' | sed 's/adoptopenjdk_open//' )
 					if [ "${print_header}" == "true" ]
 					then
 						${PARSER} \
-							--add_column benchamrk $1 \
-							--add_column benchmark_platform ${bm_type} \
 							${BENCHMARK_DIR}/$1/parse.conf \
 							${directories}/*.txt \
 								&> ${RESULT_DIR}/$1.csv
@@ -35,9 +32,6 @@ function _parse() {
 						print_header=false
 					else
 						${PARSER} \
-							--no_print_header \
-							--add_column benchamrk $1 \
-							--add_column benchmark_platform ${bm_type} \
 							${BENCHMARK_DIR}/$1/parse.conf \
 							${directories}/*.txt \
 								&>> ${RESULT_DIR}/$1.csv
