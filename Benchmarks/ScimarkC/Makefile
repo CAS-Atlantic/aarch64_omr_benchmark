@@ -46,10 +46,11 @@ build: scimarkC
 
 $(SCIMARK):
 	@mkdir -p $(RUN_DIR)
-	@printf "-- BENCHMARK_NAME: $(BENCHMARK_NAME)\n" >> $(RUN_DIR)/$@.txt	
-	@printf "-- VM: $(VM)\n" >> $(RUN_DIR)/$@.txt
-	@printf "-- CPU_TYPE: $(CPU_TYPE)\n" >> $(RUN_DIR)/$@.txt
-	@printf "\n===== Executing $@ (log: $(RUN_DIR)/$@.txt) =====\n"
+	@echo "-- BENCHMARK_NAME: $(BENCHMARK_NAME)" >> $(RUN_DIR)/$@.txt	
+	@echo "-- VM: $(VM)" >> $(RUN_DIR)/$@.txt
+	@echo "-- CPU_TYPE: $(CPU_TYPE)" >> $(RUN_DIR)/$@.txt
+	@echo ""
+	@echo "===== Executing $@ (log: $(RUN_DIR)/$@.txt) ====="
 	cd scimarkC && /usr/bin/time ./$@ $(ITTERATION) 2>&1 | tee $(RUN_DIR)/$@.txt
 
 run: | build $(SCIMARK)
