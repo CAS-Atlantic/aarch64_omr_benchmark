@@ -48,6 +48,7 @@ build:
 
 $(SCIMARK):
 	@mkdir -p $(RUN_DIR)
+	printf "" > $(RUN_DIR)/$@.txt
 	@echo "-- BENCHMARK_NAME: $(BENCHMARK_NAME)" >> $(RUN_DIR)/$@.txt	
 	@echo "-- VM: $(VM)" >> $(RUN_DIR)/$@.txt
 	@echo "-- CPU_TYPE: $(CPU_TYPE)" >> $(RUN_DIR)/$@.txt
