@@ -2,26 +2,25 @@
 
 JAVA_ROOT=/opt/jdk
 
-CPU="n/a"
 case $(uname -m) in
     aarch64)
 		case $(uname -n) in
 			Khadas)
 				# vim3 is at 1.40
 				sudo ./lock_frequency.sh "1.40"
-				CPU="A73"
+				CPU_TYPE="A73"
 				;;
 			*)
 				# rock64 is at 1.30
 				sudo ./lock_frequency.sh "1.30"
-				CPU="A53"
+				CPU_TYPE="A53"
 				;;
 		esac
         ;;
     *)
 		# atom board closest frequency is 1.28
 		sudo ./lock_frequency.sh "1.28"
-		CPU="amd64"
+		CPU_TYPE="amd64"
         ;;
 esac
 
@@ -29,8 +28,8 @@ ITTERATE="1"
 BENCHMARK_DIR=(
 	"Benchmarks/SPECjvm2008"
 	"Benchmarks/DaCapo"
-    "Benchmarks/ScimarkC"
-    "Benchmarks/ScimarkJava"
+	"Benchmarks/ScimarkC"
+	"Benchmarks/ScimarkJava"
 )
 
 for BENCHMARK in ${BENCHMARK_DIR[@]}
@@ -57,7 +56,7 @@ do
 
 			for (( i=1; i <= ITTERATE; i++ ))
 			do
-				make CPU="${CPU}" VM="${VM}" JAVA_HOME="${JAVA_HOME}" JAVA_OPTS="${JAVA_OPTS}"
+				make CPU_TYPE="${CPU}" VM="${VM}" JAVA_HOME="${JAVA_HOME}" JAVA_OPTS="${JAVA_OPTS}"
 			done
 		done
 	done
