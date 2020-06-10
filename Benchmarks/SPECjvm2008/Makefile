@@ -109,6 +109,7 @@ $(EXECUTABLE_JAR): $(INSTALLER)
 			-i silent
 
 $(ALL): $(EXECUTABLE_JAR)
+	@sleep 60
 	@mkdir -p $(RUN_DIR)
 	printf "" > $(RUN_DIR)/$@.txt
 	@echo "-- BENCHMARK_NAME: $(BENCHMARK_NAME)" >> $(RUN_DIR)/$@.txt	

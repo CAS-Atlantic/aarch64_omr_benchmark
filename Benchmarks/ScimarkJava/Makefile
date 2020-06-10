@@ -47,6 +47,7 @@ build:
 	cd scimarkJava && make 
 
 $(SCIMARK):
+	@sleep 60
 	@mkdir -p $(RUN_DIR)
 	printf "" > $(RUN_DIR)/$@.txt
 	@echo "-- BENCHMARK_NAME: $(BENCHMARK_NAME)" >> $(RUN_DIR)/$@.txt	
