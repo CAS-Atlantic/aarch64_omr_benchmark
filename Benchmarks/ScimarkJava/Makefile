@@ -41,11 +41,10 @@ PARSER_CONF := $(CURDIR)/parse.conf
 # begin
 default: run
 
-scimarkJava:
+build:
+	rm -Rf scimarkJava || /bin/true
 	git clone https://github.com/jeanlego/scimarkJava.git
-
-build: scimarkJava
-	cd scimarkJava && git reset --hard origin/master && git clean -dxf && git pull && make 
+	cd scimarkJava && make 
 
 $(SCIMARK):
 	@mkdir -p $(RUN_DIR)
@@ -54,7 +53,7 @@ $(SCIMARK):
 	@echo "-- CPU_TYPE: $(CPU_TYPE)" >> $(RUN_DIR)/$@.txt
 	@echo ""
 	@echo "===== Executing $@ (log: $(RUN_DIR)/$@.txt) ====="
-	cd scimarkJava && /usr/bin/time $(RUNNER) $@ $(ITTERATION) 2>&1 | tee $(RUN_DIR)/$@.txt
+	cd scimarkJava && /usr/bin/time $(RUNNER) $@ $(ITTERATION) 2>&1 | tee -a $(RUN_DIR)/$@.txt
 
 run: | build $(SCIMARK)
 

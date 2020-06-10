@@ -38,11 +38,10 @@ PARSER_CONF := $(CURDIR)/parse.conf
 
 default: run
 
-scimarkC:
+build:
+	rm -Rf scimarkC || /bin/true
 	git clone https://github.com/jeanlego/scimarkC.git
-
-build: scimarkC
-	cd scimarkC && git reset --hard origin/master && git clean -dxf && git pull && make
+	cd scimarkC && make
 
 $(SCIMARK):
 	@mkdir -p $(RUN_DIR)
@@ -51,7 +50,7 @@ $(SCIMARK):
 	@echo "-- CPU_TYPE: $(CPU_TYPE)" >> $(RUN_DIR)/$@.txt
 	@echo ""
 	@echo "===== Executing $@ (log: $(RUN_DIR)/$@.txt) ====="
-	cd scimarkC && /usr/bin/time ./bin/$@ $(ITTERATION) 2>&1 | tee $(RUN_DIR)/$@.txt
+	cd scimarkC && /usr/bin/time ./bin/$@ $(ITTERATION) 2>&1 | tee -a $(RUN_DIR)/$@.txt
 
 run: | build $(SCIMARK)
 	

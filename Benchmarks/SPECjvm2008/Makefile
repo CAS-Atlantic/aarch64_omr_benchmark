@@ -115,7 +115,7 @@ $(ALL): $(EXECUTABLE_JAR)
 	@echo "-- CPU_TYPE: $(CPU_TYPE)" >> $(RUN_DIR)/$@.txt
 	@echo ""
 	@echo "===== Executing $@ (log: $(RUN_DIR)/$@.txt) ====="
-	/usr/bin/time $(RUNNER) $@ 2>&1 | tee $(RUN_DIR)/$@.txt
+	/usr/bin/time $(RUNNER) $@ 2>&1 | tee -a $(RUN_DIR)/$@.txt
 
 crypto: $(CRYPTO)
 
