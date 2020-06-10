@@ -56,7 +56,7 @@ do
 
 			for (( i=1; i <= ITTERATE; i++ ))
 			do
-				make CPU_TYPE="${CPU}" VM="${VM}" JAVA_HOME="${JAVA_HOME}" JAVA_OPTS="${JAVA_OPTS}"
+				make CPU_TYPE="${CPU_TYPE}" VM="${VM}" JAVA_HOME="${JAVA_HOME}" JAVA_OPTS="${JAVA_OPTS}"
 			done
 		done
 	done
