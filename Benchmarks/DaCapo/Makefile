@@ -51,7 +51,7 @@ PARSER_CONF := $(CURDIR)/parse.conf
 default: all
 
 $(EXECUTABLE_JAR):
-	[ -f "$(EXECUTABLE_JAR)" ] || curl -L $(URL) -o $(EXEC)
+	[ -f "$(EXECUTABLE_JAR)" ] || curl -L $(URL) -o $(EXECUTABLE_JAR)
 
 $(ALL): $(EXECUTABLE_JAR)
 	@sleep 60
