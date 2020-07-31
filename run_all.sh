@@ -55,6 +55,7 @@ BENCHMARK_DIR=(
 	"Benchmarks/DaCapo"
 	"Benchmarks/ScimarkC"
 	"Benchmarks/ScimarkJava"
+	"Benchmarks/RenaissanceSuite"
 )
 
 for BENCHMARK in ${BENCHMARK_DIR[@]}
