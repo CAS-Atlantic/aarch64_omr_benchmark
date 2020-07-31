@@ -44,7 +44,6 @@ build:
 	cd scimarkC && make
 
 $(SCIMARK):
-	@sleep 60
 	@mkdir -p $(RUN_DIR)
 	printf "" > $(RUN_DIR)/$@.txt
 	@echo "-- BENCHMARK_NAME: $(BENCHMARK_NAME)" >> $(RUN_DIR)/$@.txt	
@@ -53,6 +52,7 @@ $(SCIMARK):
 	@echo ""
 	@echo "===== Executing $@ (log: $(RUN_DIR)/$@.txt) ====="
 	cd scimarkC && /usr/bin/time ./bin/$@ $(ITTERATION) 2>&1 | tee -a $(RUN_DIR)/$@.txt
+	@sleep 20
 
 run: | build $(SCIMARK)
 	

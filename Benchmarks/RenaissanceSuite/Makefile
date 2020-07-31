@@ -105,7 +105,6 @@ $(EXECUTABLE_JAR):
 	[ -f "$(EXECUTABLE_JAR)" ] || curl -L $(URL) -o $(EXECUTABLE_JAR)
 
 $(ALL): $(EXECUTABLE_JAR)
-	@sleep 60
 	@mkdir -p $(RUN_DIR)
 	printf "" > $(RUN_DIR)/$@.txt
 	@echo "-- BENCHMARK_NAME: $(BENCHMARK_NAME)" >> $(RUN_DIR)/$@.txt	
@@ -114,6 +113,7 @@ $(ALL): $(EXECUTABLE_JAR)
 	@echo ""
 	@echo "===== Executing $@ (log: $(RUN_DIR)/$@.txt) ====="
 	/usr/bin/time $(RUNNER) $@ 2>&1 | tee -a $(RUN_DIR)/$@.txt
+	@sleep 20
 
 all: $(ALL)
 
