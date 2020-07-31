@@ -85,10 +85,10 @@ esac
 
 ITERATE="1"
 BENCHMARK_DIR=(
-#	"Benchmarks/SPECjvm2008"
-#	"Benchmarks/DaCapo"
-#	"Benchmarks/ScimarkC"
-#	"Benchmarks/ScimarkJava"
+	"Benchmarks/SPECjvm2008"
+	"Benchmarks/DaCapo"
+	"Benchmarks/ScimarkC"
+	"Benchmarks/ScimarkJava"
 	"Benchmarks/RenaissanceSuite"
 )
 
