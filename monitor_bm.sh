@@ -16,23 +16,28 @@ do
     if [[ -a /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_cur_freq ]];
     then
         cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_cur_freq | awk '{printf "%0.3lf GHz (Current CPU Frequency)\n", $1/1000.0}'
+    fi
 
-    elif [[ -a /sys/devices/system/cpu/cpufreq/policy0/scaling_cur_freq ]];
+    if [[ -a /sys/devices/system/cpu/cpufreq/policy0/scaling_cur_freq ]];
     then
         cat /sys/devices/system/cpu/cpufreq/policy0/scaling_cur_freq | awk '{printf "%0.3lf GHz (Current Scaling CPU Frequency)\n", $1/1000.0}'
+    fi
 
-    elif [[ -a /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_min_freq ]] && [[ -a /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq ]];
+    if [[ -a /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_min_freq ]] && [[ -a /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq ]];
     then
         cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_min_freq | awk '{printf "%0.3lf GHz (Minimum CPU Frequency)\n", $1/1000.0}'
         cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq | awk '{printf "%0.3lf GHz (Maximum CPU Frequency)\n", $1/1000.0}'
+    fi
 
-    elif [[ -a /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq ]] && [[ -a /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq ]];
+    if [[ -a /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq ]] && [[ -a /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq ]];
     then
         cat /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq | awk '{printf "%0.3lf GHz (Minimum Scaling CPU Frequency)\n", $1/1000.0}'
         cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | awk '{printf "%0.3lf GHz (Maximum Scaling CPU Frequency)\n", $1/1000.0}'
+    fi
 
-    else
-        echo -e "\nWARNING: Coudn't Determine Current or Minimum or Maximum or Scaling Current or Scaling Minimum or Scaling Maximum Frequency (/sys/devices/system/cpu/cpufreq/policy0/cpuinfo_cur_freq and/or /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_min_freq and/or /sys/devices/system/cpu/cpufreq/policy0/scaling_cur_freq and/or /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq and/or /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq and/or /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq doesn't exist!)!\n"
+    if [[ ! -a /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_cur_freq ]] && [[ ! -a /sys/devices/system/cpu/cpufreq/policy0/scaling_cur_freq ]] && [[ ! -a /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_min_freq ]] && [[ ! -a /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq ]] && [[ ! -a /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq ]] && [[ ! -a /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq ]];
+    then
+        echo -e "\nWARNING: Coudn't Determine Current and Minimum and Maximum and Scaling Current and Scaling Minimum and Scaling Maximum Frequency (/sys/devices/system/cpu/cpufreq/policy0/cpuinfo_cur_freq and /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_min_freq and /sys/devices/system/cpu/cpufreq/policy0/scaling_cur_freq and /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq and /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq and /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq doesn't exist!)!\n"
     fi
 
     echo -e "\n\n=============\nMEMORY:"
