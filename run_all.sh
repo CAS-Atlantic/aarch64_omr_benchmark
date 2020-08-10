@@ -2,17 +2,22 @@
 
 echo -e "\n${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): Init:"
 
+OPT_JDKS_PATTERN="/opt/jdk*/*/bin/java"
+OPT_JDKS=( $OPT_JDKS_PATTERN )
+# Grab First Found JDK in /opt/jdk*/ Directory:
+OPT_JDK="${OPT_JDKS[0]}"
+
 # Set JAVA_ROOT from Command Line Argument:
 if [[ "" != $1 ]] && [[ -a "$1/bin/java" ]];
 then
 	echo -e "\n${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): INFO: Setting JDK from Command-Line Argument (\$1: '$1').\n"
-	JAVA_ROOT=$1
+	JAVA_ROOT="$1"
 
 # Make Sure an /opt/jdk*/ Directory Exists and an /opt/jdk*/*/bin/java Executable Exists:
-elif [[ -d /opt/jdk*/ ]] && [[ -a /opt/jdk*/*/bin/java ]];
+elif [[ -d "`echo $OPT_JDK | sed -e 's#/bin/java$##'`" ]] && [[ -a "$OPT_JDK" ]];
 then
-	echo -e "\n${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): WARNING: Setting JDK from Newest Found JDK in /opt/jdk*/ Directory (ls -altr /opt/jdk*/*/bin/java | tail -n1 | sed -e 's#/bin/java\$##': '`ls -altr /opt/jdk*/*/bin/java | tail -n | sed -e 's#/bin/java$##'`').\n"
-	JAVA_ROOT=`ls -altr /opt/jdk*/*/bin/java | tail -n1 | sed -e 's#/bin/java$##'`
+	echo -e "\n${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): WARNING: Setting JDK from Fisrt Found JDK in /opt/jdk*/ Directory (echo \$OPT_JDK | sed -e 's#/bin/java\$##': '`echo $OPT_JDK | sed -e 's#/bin/java$##'`').\n"
+	JAVA_ROOT=`echo $OPT_JDK | sed -e 's#/bin/java$##'`
 
 # Get JDK from JDK_HOME
 elif [[ "" != "$JDK_HOME" ]] && [[ -a "$JDK_HOME/bin/java" ]];
@@ -96,6 +101,7 @@ JAVA_HOME="${JAVA_ROOT}"
 JAVA_OPTS=" -Xms2G -Xmx2G "
 VM="$(basename "${JAVA_ROOT}")"
 
+echo -e "${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): CPU_TYPE: '$CPU_TYPE'"
 echo -e "${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): BENCHMARK_DIR[@]: '${BENCHMARK_DIR[@]}'"
 echo -e "${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): JAVA_HOME: '$JAVA_HOME'"
 echo -e "${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): JAVA_OPTS: '$JAVA_OPTS'"
@@ -126,6 +132,9 @@ do
 			exit -1
 		;;
 	esac
+
+	# echo -e "${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): VM: '$VM'"
+	# echo -e "${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): JAVA_OPTS: '$JAVA_OPTS'\n"
 
 	for (( i=1; i <= ITERATE; i++ ))
 	do
