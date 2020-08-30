@@ -98,7 +98,17 @@ BENCHMARK_DIR=(
 )
 
 JAVA_HOME="${JAVA_ROOT}"
+
+# More OpenJ9 Command-Line Options:
+# -verbose:sizes
+# -Xjit:disableCompactLocals
+# -Xint
+# -Xjit:exclude={java/io/Object*.*}
+# -Xss2M
+# -Xjit:disableEscapeAnalysis
+# -Xdump:java+system:events=throw+systhrow,filter=java/lang/StackOverflowError
 JAVA_OPTS=" -Xms2G -Xmx2G "
+
 VM="$(basename "${JAVA_ROOT}")"
 
 echo -e "${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): CPU_TYPE: '$CPU_TYPE'"
