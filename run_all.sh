@@ -45,9 +45,37 @@ fi
 echo -e "${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): JAVA_ROOT: '$JAVA_ROOT'"
 
 # Check if The '/usr/bin/time' Executable Exists:
-if [[ ! -a /usr/bin/time ]];
+if [[ ! -a /usr/bin/time ]] || ! hash time 2>/dev/null;
 then
 	echo -e "\n${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): ERROR: The '/usr/bin/time' Executable Doesn't Exist!\n\nExiting...\n"
+	exit -1
+fi
+
+# Check if The 'curl' Executable Exists:
+if ! hash curl 2>/dev/null;
+then
+	echo -e "\n${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): ERROR: The 'curl' Executable Doesn't Exist!\n\nExiting...\n"
+	exit -1
+fi
+
+# Check if The 'javac' Executable Exists:
+if ! hash javac 2>/dev/null;
+then
+	echo -e "\n${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): ERROR: The 'javac' Executable Doesn't Exist!\n\nExiting...\n"
+	exit -1
+fi
+
+# Check if The 'java' Executable Exists:
+if ! hash java 2>/dev/null;
+then
+	echo -e "\n${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): ERROR: The 'java' Executable Doesn't Exist!\n\nExiting...\n"
+	exit -1
+fi
+
+# Check if The 'cpupower' Executable Exists:
+if ! hash cpupower 2>/dev/null;
+then
+	echo -e "\n${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): ERROR: The 'cpupower' Executable Doesn't Exist!\n\nExiting...\n"
 	exit -1
 fi
 
