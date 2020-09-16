@@ -100,12 +100,12 @@ case $(uname -m) in
         ;;
     x86_64)
 		case $(uname -n) in
-			CASA40)
+			beelink1)
+				# atom board closest frequency is 1.28
+				sudo ./lock_frequency.sh "1.28"
 				CPU_TYPE="amd64"
 				;;
 			*)
-				# atom board closest frequency is 1.28
-				sudo ./lock_frequency.sh "1.28"
 				CPU_TYPE="amd64"
 				;;
 		esac
@@ -152,17 +152,14 @@ do
 	case "${VM}" in
 		*openj9*)
 			VM="openj9"
-			JAVA_OPTS="${JAVA_OPTS} -Xgcpolicy:optthruput -Xgcthreads2 -Xenableexcessivegc -Xgc:excessiveGCratio=95"
 		;;
 
 		*j9*)
 			VM="openj9"
-			JAVA_OPTS="${JAVA_OPTS} -Xgcpolicy:optthruput -Xgcthreads2 -Xenableexcessivegc -Xgc:excessiveGCratio=95"
 		;;
 
 		*hotspot*)
 			VM="hotspot"
-			JAVA_OPTS="${JAVA_OPTS} -XX:+UseParallelGC -XX:ParallelGCThreads=2 -XX:GCTimeRatio=19"
 		;;
 
 		*)
