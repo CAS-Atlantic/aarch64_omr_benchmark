@@ -40,7 +40,7 @@ default: run
 
 build:
 	rm -Rf scimarkC || /bin/true
-	git clone https://github.com/jeanlego/scimarkC.git
+	git clone https://github.com/CAS-Atlantic/scimarkC.git
 	cd scimarkC && make
 
 $(SCIMARK):

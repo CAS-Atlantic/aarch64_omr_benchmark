@@ -43,7 +43,7 @@ default: run
 
 build:
 	rm -Rf scimarkJava || /bin/true
-	git clone https://github.com/jeanlego/scimarkJava.git
+	git clone https://github.com/CAS-Atlantic/scimarkJava.git
 	cd scimarkJava && make 
 
 $(SCIMARK):
