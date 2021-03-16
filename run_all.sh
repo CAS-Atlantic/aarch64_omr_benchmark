@@ -95,6 +95,11 @@ case $(uname -m) in
 				sudo ./lock_frequency.sh "1.30"
 				CPU_TYPE="A73"
 				;;
+			casa-pi4b-1)
+				# Raspberry Pi 4 B is at 1.30
+				sudo ./lock_frequency.sh "1.30"
+				CPU_TYPE="A72"
+				;;
 			*)
 				# rock64 is at 1.30
 				sudo ./lock_frequency.sh "1.30"
