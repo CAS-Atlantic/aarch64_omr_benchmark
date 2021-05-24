@@ -1,0 +1,30 @@
+[DEFAULT]
+    auto-hide = false
+    default = -1
+    # hide all the values if they match their default
+    hide-if = ${default}
+
+["Core"]
+	regex = "-- CPU_TYPE: (.*)"
+	default = "n/a"
+	key = true
+
+["Benchmark"]
+	regex = "-- BENCHMARK_NAME: (.*)"
+	default = "n/a"
+	key = true
+
+["Vm"]
+	regex = "-- VM: (.*)"
+	default = "n/a"
+	key = true
+
+["Name"]
+	regex = [
+		"===== DaCapo 9.12-MR1 (.*) starting =====",
+		"[Bb]enchmark[s]?: (.*)"
+		]
+	default = "n/a"
+	key = true
+
+#include parse_time.toml

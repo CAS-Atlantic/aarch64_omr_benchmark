@@ -1,0 +1,24 @@
+["ElapsedTime"]
+	regex = "Elapsed Time: (\d+[.]\d+) Seconds"
+
+["CPU"]
+	regex = "CPU: (\d+([.]\d+)?)%"
+
+["MaxMemory"]
+	regex = "Max Memory: (\d+([.]\d+)?) KiB"
+
+["AvgMemory"]
+	regex = "Average Memory: (\d+([.]\d+)?) KiB"
+
+["MinorPF"]
+	regex = "Minor PF: (\d+([.]\d+)?)"
+
+["MajorPF"]
+	regex = "Major PF: (\d+([.]\d+)?)"
+
+["CtxSwitch"]
+	regex = "Context Switch: (\d+([.]\d+)?).*"
+
+["exit"]
+	regex = "Program Exit Code: ([0-9]+)"
+

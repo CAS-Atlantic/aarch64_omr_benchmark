@@ -100,7 +100,7 @@ ALL := \
 TEMP_DIR := $(CURDIR)/run
 RUN_DIR := $(shell mkdir -p $(TEMP_DIR)/$(_REPO_FIX); mktemp -d $(TEMP_DIR)/$(_REPO_FIX)/run_XXX)
 PARSER := $(CURDIR)/../../parse_bm.py
-PARSER_CONF := $(CURDIR)/parse.conf
+PARSER_CONF := $(CURDIR)/parse.toml
 
 #################################
 # begin

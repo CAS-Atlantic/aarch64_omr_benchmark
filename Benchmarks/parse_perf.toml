@@ -1,0 +1,18 @@
+["TimeToComplete"]
+	regex = "([0-9]+[.]{0,1}[0-9]+) seconds time elapsed.*"
+
+["ContextSwitches"]
+	regex = "([0-9,]+) context-switches.*"
+
+["Cycles"]
+	regex = "([0-9,]+) cycles.*"
+
+["Instructions"]
+	regex = "([0-9,]+) instructions.*"
+
+["PageFault"]
+	regex = "([0-9,]+) page-faults.*"
+
+["L1CacheMisses"]
+	regex = "([0-9,]+) L1-dcache-load-misses.*"
+
