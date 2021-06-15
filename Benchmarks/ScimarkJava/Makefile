@@ -63,5 +63,3 @@ $(SCIMARK):
 	@sleep 20
 
 run: | build $(SCIMARK)
-
-

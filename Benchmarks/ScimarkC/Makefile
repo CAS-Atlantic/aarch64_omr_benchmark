@@ -1,3 +1,8 @@
+# Authors: Aaron Graham (aaron.graham@unb.ca, aarongraham9@gmail.com) and
+#          Jean-Philippe Legault (jlegault@unb.ca, jeanphilippe.legault@gmail.com)
+#           for the Centre for Advanced Studies - Atlantic (CAS-Atlantic) at the
+#            Univerity of New Brunswick in Fredericton, New Brunswick, Canada
+
 ifndef JAVA_HOME
 $(error JAVA_HOME is not set)
 endif
@@ -13,11 +18,6 @@ export TIME=\n\
 	Program Exit Code: %x\n
 
 ##################
-# Authors: Aaron Graham (aaron.graham@unb.ca, aarongraham9@gmail.com) and
-#          Jean-Philippe Legault (jlegault@unb.ca, jeanphilippe.legault@gmail.com)
-#           for the Centre for Advanced Studies - Atlantic (CAS-Atlantic) at the
-#            Univerity of New Brunswick in Fredericton, New Brunswick, Canada
-
 # setup BM
 
 BENCHMARK_NAME = ScimarkC
@@ -60,5 +60,3 @@ $(SCIMARK):
 	@sleep 20
 
 run: | build $(SCIMARK)
-	
-

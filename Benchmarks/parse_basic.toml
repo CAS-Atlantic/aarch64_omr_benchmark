@@ -1,3 +1,8 @@
+# Authors: Aaron Graham (aaron.graham@unb.ca, aarongraham9@gmail.com) and
+#          Jean-Philippe Legault (jlegault@unb.ca, jeanphilippe.legault@gmail.com)
+#           for the Centre for Advanced Studies - Atlantic (CAS-Atlantic) at the
+#            Univerity of New Brunswick in Fredericton, New Brunswick, Canada
+
 [DEFAULT]
     auto-hide = false
     default = -1
@@ -21,8 +26,18 @@
 
 ["Name"]
 	regex = [
-		"===== DaCapo 9.12-MR1 (.*) starting =====",
-		"[Bb]enchmark[s]?: (.*)"
+		"===== DaCapo 9.12-MR1 ([^\.]*).* starting =====",
+		"====== ([^ \t\.]*).* iteration 0 started ======",
+		"[Bb]enchmark[s]?: ([^\.]*).*"
+		]
+	default = "n/a"
+	key = true
+
+["SubName"]
+	regex = [
+		"===== DaCapo 9.12-MR1 [^\.]*[\.](.*) starting =====",
+		"====== [^ \t\.][\.]([^ \t]*) iteration 0 started ======",
+		"[Bb]enchmark[s]?: [^\.]*[\.](.*)"
 		]
 	default = "n/a"
 	key = true

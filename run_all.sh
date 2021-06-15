@@ -154,6 +154,13 @@ echo -e "${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): JAVA_HOME: '$JAVA_H
 echo -e "${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): JAVA_OPTS: '$JAVA_OPTS'"
 echo -e "${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): VM: '$VM'\n"
 
+# Is a built-from-source JVM:
+if [[ "jdk" == "${VM}" ]];
+then
+	VM="${JAVA_ROOT}"
+	echo -e "${0##*/}@${HOSTNAME}:$( date "+%Y.%m.%d.%H%M.%S" ): INFO: Setting 'VM' as built-from-source JVM (VM: 'jdk' -> '$VM')\n"
+fi
+
 for BENCHMARK in ${BENCHMARK_DIR[@]}
 do
 	pushd "${BENCHMARK}" || exit 1

@@ -70,4 +70,3 @@ $(ALL): $(EXECUTABLE_JAR)
 	@sleep 20
 
 all: $(ALL)
-
